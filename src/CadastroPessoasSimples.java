@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+// Programa de console que cadastra nomes em um array de 10 posições via menu
 public class CadastroPessoasSimples {
     public static void main(String[] args) {
 
@@ -13,6 +14,7 @@ public class CadastroPessoasSimples {
         int opcao;
 
 
+        // loop do menu; definir menu = false encerra o programa
         while (menu) {
 
             System.out.println();
@@ -22,28 +24,31 @@ public class CadastroPessoasSimples {
             System.out.println("3) Sair");
             System.out.print("Escolha uma opção (1-3) → ");
             opcao = sc.nextInt();
+            // limpa o Enter pendente do nextInt()
             sc.nextLine();
 
             switch (opcao) {
                 case 1:
-                    boolean cadastrou = false;
                     for (int i = 0; i < pessoas.length; i++) {
+                        // posição vazia no array é representada por null — cadastrar aqui
                         if (pessoas[i] == null) {
                             System.out.print("Nome → ");
                             pessoas[i] = sc.nextLine();
                             System.out.println("Pessoa adicionada: " + pessoas[i] + " (posição " + i + ")");
-                            cadastrou = true;
                             System.out.print("Deseja adicionar mais? (S/N) → ");
                             String resultado = sc.nextLine();
                             if (resultado.equalsIgnoreCase("N")) {
                                 System.out.println("Retornando ao menu principal...\n");
+                                // este break sai do for (volta ao menu)
                                 break;
                             }
                         }
                     }
+                    // este break encerra o case 1 (sai do switch)
                     break;
                 case 2:
                     System.out.println("-- Pessoas cadastradas --");
+                    // mostra apenas as posições preenchidas (não imprime null)
                     for (int i = 0; i < pessoas.length; i++) {
                         if (pessoas[i] != null) {
                             System.out.println("[" + i + "] " + pessoas[i]);
