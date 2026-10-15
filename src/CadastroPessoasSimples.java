@@ -29,14 +29,42 @@ public class CadastroPessoasSimples {
 
             switch (opcao) {
                 case 1:
+                    // confere se ainda tem vaga antes de pedir o nome
+                    boolean temVaga = false;
+                    for (int i = 0; i < pessoas.length; i++) {
+                        if (pessoas[i] == null) {
+                            temVaga = true;
+                            break;
+                        }
+                    }
+                    if (!temVaga) {
+                        System.out.println("Lista cheia!");
+                        break;
+                    }
                     for (int i = 0; i < pessoas.length; i++) {
                         // posição vazia no array é representada por null — cadastrar aqui
                         if (pessoas[i] == null) {
                             System.out.print("Nome → ");
                             pessoas[i] = sc.nextLine();
                             System.out.println("Pessoa adicionada: " + pessoas[i] + " (posição " + i + ")");
-                            System.out.print("Deseja adicionar mais? (S/N) → ");
+
+                            // considera 'listaCheia' true, até encontrar uma posição vazia
+                            boolean listaCheia = true;
+
+                            // verifica se tem alguma vaga
+                            for (int j = 0; j < pessoas.length; j++) {
+                                if (pessoas[j] == null) {
+                                    listaCheia = false;
+                                    break;
+                                }
+                            }
+                            if (listaCheia) {
+                                System.out.println("Lista cheia!");
+                                break;
+                            }
+                            System.out.print("Deseja adicionar mais? [S/N] → ");
                             String resultado = sc.nextLine();
+
                             if (resultado.equalsIgnoreCase("N")) {
                                 System.out.println("Retornando ao menu principal...\n");
                                 // este break sai do for (volta ao menu)
@@ -64,11 +92,7 @@ public class CadastroPessoasSimples {
                     break;
             }
         }
-
-
         sc.close();
-
-
     }
 }
 
